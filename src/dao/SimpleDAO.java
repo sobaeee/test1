@@ -49,7 +49,7 @@ public class SimpleDAO {
 	 */
 	
 	public void delete () {
-		//코드 작성 
+		//코드 작성
 		
 	}
 }
