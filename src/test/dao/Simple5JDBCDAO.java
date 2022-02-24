@@ -1,32 +1,24 @@
-package dao;
+package test.dao;
 /**
- * DB에 등록해보자~~~~~! 
+ * DB를 조회해보자~~~~~~~~~!!
  */
-
 import java.net.ConnectException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 
-public class Simple6JDBCDAO {
+public class Simple5JDBCDAO {
 
 	public static void main(String[] args) {
-		String paramVarchar = "varcharTest";
-		String paramChar = "charTest";
-		double paramInt = 200.001;
-		Date paramDate = new Date(System.currentTimeMillis());
-		Timestamp paramDateTime = new Timestamp(System.currentTimeMillis());
-		
-		
+		double param = 100.001;
 		String url = "jdbc:mysql://localhost:3306/smart?characterEndoing=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		String sql = "INSERT INTO exam VALUES (?, ?, ?, ?, ?)";
+		String sql = "SELECT * FROM exam";
+		//String sql = "SELECT * FROM exam WHERE intTest = ? ";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -39,23 +31,20 @@ public class Simple6JDBCDAO {
 //			3. SQL문작성(Statement, PrepareStatement)
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setString(1, paramVarchar);
-			stmt.setString(2, paramChar);
-			stmt.setDouble(3, paramInt);
-			stmt.setDate(4, paramDate);
-			stmt.setTimestamp(5, paramDateTime);
-			//숫자가 겹치면 안된다. 
+			//stmt.setDouble(1, param);
+			// param→1→?
 			
 //			4. SQL문실행(executeQuery(), executeUpdate())
-			int res = stmt.executeUpdate(); // Query 실행
-//			5. Select문 만 ResultSet 객체를 반환한다. insert,update,delete 는 executeUpdate 사용.
+			rs = stmt.executeQuery(); // Query 실행
+//			5. Select문 만 ResultSet 객체를 반환한다.
 //			   나머진 int를 반환한다.
-			if(res> 0 ) {
-				System.out.println(res+"개의 행이 추가되었습니다.");
-			} else {
-				System.out.println("등록실패했습니다.");
+			while (rs.next()) {
+				System.out.printf("varcharTest:%s,", rs.getString("varchartest"));
+				System.out.printf("charTest:%s,", rs.getString("chartest"));
+				System.out.printf("intTest:%s,", rs.getString("inttest"));
+				System.out.printf("dateTest:%s,", rs.getString("datetest"));
+				System.out.printf("datetimeTest:%s %n", rs.getString("datetimetest"));
 			}
-			
 		} catch (Exception e) {
 
 			e.printStackTrace();

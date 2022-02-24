@@ -1,24 +1,28 @@
-package dao;
+package test.dao;
 /**
- * DB를 조회해보자~~~~~~~~~!!
+ * 
  */
+
 import java.net.ConnectException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
-public class Simple5JDBCDAO {
+public class Simple9JDBCDAO {
 
 	public static void main(String[] args) {
-		double param = 100.001;
+		String paramVarchar = "varcharTestUpdate";
+		
+		
 		String url = "jdbc:mysql://localhost:3306/smart?characterEndoing=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		String sql = "SELECT * FROM exam";
-		//String sql = "SELECT * FROM exam WHERE intTest = ? ";
+		StringBuffer sql = new StringBuffer().append("DELETE FROM exam WHERE varcharTest = ?");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -29,22 +33,21 @@ public class Simple5JDBCDAO {
 //			2. DB연결(DriverManager.getConnection())
 			conn = DriverManager.getConnection(url, user, password);
 //			3. SQL문작성(Statement, PrepareStatement)
-			stmt = conn.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql.toString());
 			
-			//stmt.setDouble(1, param);
-			// param→1→?
+			stmt.setString(1, paramVarchar);
+
 			
 //			4. SQL문실행(executeQuery(), executeUpdate())
-			rs = stmt.executeQuery(); // Query 실행
-//			5. Select문 만 ResultSet 객체를 반환한다.
+			int res = stmt.executeUpdate(); // Query 실행
+//			5. Select문 만 ResultSet 객체를 반환한다. insert,update,delete 는 executeUpdate 사용.
 //			   나머진 int를 반환한다.
-			while (rs.next()) {
-				System.out.printf("varcharTest:%s,", rs.getString("varchartest"));
-				System.out.printf("charTest:%s,", rs.getString("chartest"));
-				System.out.printf("intTest:%s,", rs.getString("inttest"));
-				System.out.printf("dateTest:%s,", rs.getString("datetest"));
-				System.out.printf("datetimeTest:%s %n", rs.getString("datetimetest"));
+			if(res> 0 ) {
+				System.out.println(res+"개의 행이 삭제되었습니다.");
+			} else {
+				System.out.println("삭제실패했습니다.");
 			}
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();

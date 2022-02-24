@@ -1,6 +1,6 @@
-package dao;
+package test.dao;
 /**
- * DB에 수정해보자~~~~~! 
+ * DB에 삭제해보자~~~~~! 
  */
 
 import java.net.ConnectException;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 
-public class Simple7JDBCDAO {
+public class Simple8JDBCDAO {
 
 	public static void main(String[] args) {
 		String paramVarchar = "varcharTestUpdate";
@@ -22,7 +22,7 @@ public class Simple7JDBCDAO {
 		String url = "jdbc:mysql://localhost:3306/smart?characterEndoing=UTF-8&serverTimezone=Asia/Seoul";
 		String user = "root";
 		String password = "smart";
-		String sql = "UPDATE exam SET varcharTest = ? WHERE 1";
+		String sql = "DELETE FROM exam WHERE varcharTest = ?";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -43,9 +43,9 @@ public class Simple7JDBCDAO {
 //			5. Select문 만 ResultSet 객체를 반환한다. insert,update,delete 는 executeUpdate 사용.
 //			   나머진 int를 반환한다.
 			if(res> 0 ) {
-				System.out.println(res+"개의 행이 수정되었습니다.");
+				System.out.println(res+"개의 행이 삭제되었습니다.");
 			} else {
-				System.out.println("수정 실패했습니다.");
+				System.out.println("삭제실패했습니다.");
 			}
 			
 		} catch (Exception e) {
