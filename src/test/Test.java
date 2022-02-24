@@ -17,7 +17,7 @@ public class Test {
 		
 		//System.out.println(createVo);
 		dao.create(createVo);
-		//()에 createVo를 넣었어니 create에 오류가 났다. ExamDAO의 create창 옆 ()에 ExamVO createVo 넣으면 오류 해결.
+		//()에 createVo를 넣었어니 create에 오류가 났다. ExamDAO의 create창 옆 ()에 ExamVO createVo 넣으면 오류 해결..
 		
 		
 		

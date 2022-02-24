@@ -21,7 +21,7 @@ public class SimpleJDBCDAO {
 //		3. SQL문작성(Statement, PrepareStatement)
 		Statement stmt = conn.createStatement();
 //		4. SQL문실행(executeQuery(), executeUpdate())
-		ResultSet rs = stmt.executeQuery(sql);   // Query 실행
+		ResultSet rs = stmt.executeQuery(sql);   // Query 실행.
 //		5. Select문 만 ResultSet 객체를 반환한다.
 //		   나머진 int를 반환한다.
 		rs.next();

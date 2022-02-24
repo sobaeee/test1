@@ -171,6 +171,6 @@ public class Simple2DAO {
 				e.printStackTrace();
 			}
 		}
-		// 닫기
+		// 닫기.
 	}
 }

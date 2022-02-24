@@ -8,7 +8,7 @@ import domain.ExamVO;
 public class ExamDAO {
 
 	/**
-	 * C : create() 등록하는 메소드 public : 접근지정자 param : 등록될 값 return : 없음.
+	 * C : create() 등록하는 메소드 public : 접근지정자 param : 등록될 값 return : 없음..
 	 */
 
 	public void create(ExamVO vo) {

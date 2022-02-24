@@ -35,7 +35,7 @@ public class Simple5JDBCDAO {
 			// param→1→?
 			
 //			4. SQL문실행(executeQuery(), executeUpdate())
-			rs = stmt.executeQuery(); // Query 실행
+			rs = stmt.executeQuery(); // Query 실행.
 //			5. Select문 만 ResultSet 객체를 반환한다.
 //			   나머진 int를 반환한다.
 			while (rs.next()) {

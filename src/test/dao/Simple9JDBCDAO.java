@@ -39,7 +39,7 @@ public class Simple9JDBCDAO {
 
 			
 //			4. SQL문실행(executeQuery(), executeUpdate())
-			int res = stmt.executeUpdate(); // Query 실행
+			int res = stmt.executeUpdate(); // Query 실행.
 //			5. Select문 만 ResultSet 객체를 반환한다. insert,update,delete 는 executeUpdate 사용.
 //			   나머진 int를 반환한다.
 			if(res> 0 ) {

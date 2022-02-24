@@ -1,6 +1,6 @@
 package domain;
 /**
- * 테이블을 이용해서 VO 클래스 만들기
+ * 테이블을 이용해서 VO 클래스 만들기.
  */
 
 import java.sql.Timestamp;
