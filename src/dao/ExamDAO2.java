@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.ExamVO;
-import util.DbUtil;
 
-public class ExamDAO extends DbUtil{
+public class ExamDAO2 {
 
 	/**
 	 * C : create() 등록하는 메소드 public : 접근지정자 param : 등록될 값 return : 없음..
@@ -15,6 +14,9 @@ public class ExamDAO extends DbUtil{
 
 	public void create(ExamVO vo) {
 		// 코드 작성
+		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user = "root";
+		String password = "smart";
 		StringBuffer sql = new StringBuffer();
 		sql.append("\n INSERT INTO exam ");
 		sql.append("\n (varcharTest, charTest, doubleTest, dateTest, dateTimeTest) ");
@@ -27,7 +29,10 @@ public class ExamDAO extends DbUtil{
 		//int idx = 1;
 
 		try {
-			conn = dbCoon();  // 한번에 드라이버로드와 DB연결 가능.
+			// 드라이버로드
+			Class.forName("com.mysql.cj.jdbc.Driver"); // 패키지명.클래스명(클래스는 대문자 패키지는 소문자)
+			// DB연결
+			conn = DriverManager.getConnection(url, user, password);
 			// prepareStatement(SQL작성 실행)
 			stmt = conn.prepareStatement(sql.toString());
 			// prepareStatement로 리턴값을 받는다. 메소드를 객체로 만들어서 객체.메소드로 실행을 시킨다.
@@ -51,8 +56,18 @@ public class ExamDAO extends DbUtil{
 			// ClassNotFoundException -> Exception으로 수정
 			e.printStackTrace();
 		} finally {
-			//DbUtil.dbClose(conn, stmt, null); //null이 있어서 if를 안붙여두 된다.
-			dbClose(conn, stmt, null); //DbUtil을 상속 받았을때 쓴다.
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
 		}
 		// 닫기
 	}
@@ -62,6 +77,9 @@ public class ExamDAO extends DbUtil{
 	 */
 
 	public List read() {
+		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user = "root";
+		String password = "smart";
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT * FROM exam ");
 		
@@ -73,7 +91,10 @@ public class ExamDAO extends DbUtil{
 		
 		// 코드 작성
 		try {
-			conn = dbCoon();
+			// 드라이버로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// DB연결
+			conn = DriverManager.getConnection(url, user, password);
 			// prepareStatement(SQL작성 실행)
 			stmt = conn.prepareStatement(sql.toString());
 			rs = stmt.executeQuery(); // executeQuery가 ResultSet을 리턴해서 ResultSet으로 받음
@@ -95,16 +116,15 @@ public class ExamDAO extends DbUtil{
 
 			e.printStackTrace();
 		} finally {
-			dbClose(conn, stmt, rs);
-//			try {
-//				if (rs != null) rs.close();
-//				if (stmt != null) stmt.close();
-//				if (conn != null) conn.close();
-//
-//			} catch (SQLException e) {
-//
-//				e.printStackTrace();
-//			}
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
 		}
 
 		// 닫기
@@ -113,6 +133,9 @@ public class ExamDAO extends DbUtil{
 	
 	public ExamVO read(ExamVO vo){
 		//코드작성
+		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user = "root";
+		String password = "smart";
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT * FROM exam WHERE num = ?" ); //변수가 들어갈 자리를 ? 로 표시.
 		ExamVO examVo = null;
@@ -121,7 +144,10 @@ public class ExamDAO extends DbUtil{
 		ResultSet rs = null;
 
 		try {
-			conn = dbCoon();
+			//드라이버 로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			//연결
+			conn = DriverManager.getConnection(url,user,password);
 			//preparedStatement(SQL문+실행)
 			stmt = conn.prepareStatement(sql.toString());
 			
@@ -142,15 +168,14 @@ public class ExamDAO extends DbUtil{
 			
 			e.printStackTrace();
 		} finally {
-			dbClose(conn, stmt, rs);
-//			try {
-//				if(rs != null) rs.close();
-//				if(stmt != null) stmt.close();
-//				if(conn != null) conn.close();
-//			} catch (SQLException e) {
-//				
-//				e.printStackTrace();
-//			}
+			try {
+				if(rs != null) rs.close();
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
 		}
 		//닫기
 		//코드작성끝
@@ -162,6 +187,9 @@ public class ExamDAO extends DbUtil{
 	 */
 
 	public void update(ExamVO vo) {
+		String url= "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user= "root";
+		String password= "smart";
 		StringBuffer sql = new StringBuffer();
 		
 		//mysql에서 복사 붙이기해서 가져옴. sql.append 로 갖다붙임.
@@ -176,7 +204,10 @@ public class ExamDAO extends DbUtil{
 		
 		// 코드 작성
 		try {
-			conn = dbCoon();
+			// 드라이버로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// DB연결
+			conn = DriverManager.getConnection(url, user, password);
 			// prepareStatement(SQL작성 실행)
 			stmt = conn.prepareStatement(sql.toString());
 			
@@ -190,14 +221,13 @@ public class ExamDAO extends DbUtil{
 			
 			e.printStackTrace();
 		} finally {
-			dbClose(conn, stmt, null);
-//			try {
-//				if(stmt != null) stmt.close();
-//				if(conn != null) conn.close();
-//			} catch (SQLException e) {
-//				
-//				e.printStackTrace();
-//			}
+			try {
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
 
 		}
 		// 닫기
@@ -208,6 +238,9 @@ public class ExamDAO extends DbUtil{
 	 */
 
 	public void delete(ExamVO vo) {
+		String url = "jdbc:mysql://localhost:3306/smart?characterEncoding=UTF-8&serverTimezone=Asia/Seoul";
+		String user = "root";
+		String password = "smart";
 		StringBuffer sql = new StringBuffer();
 		sql.append(" DELETE FROM exam WHERE num = ? ");
 		
@@ -218,7 +251,10 @@ public class ExamDAO extends DbUtil{
 		
 		// 코드 작성
 		try {
-			conn = dbCoon();
+			// 드라이버로드
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			// DB연결
+			conn = DriverManager.getConnection(url, user, password);
 			stmt = conn.prepareStatement(sql.toString());
 			
 			stmt.setInt(1, vo.getNum());
@@ -230,14 +266,13 @@ public class ExamDAO extends DbUtil{
 			
 			e.printStackTrace();
 		} finally {
-			dbClose(conn, stmt, null);
-//			try {
-//				if(stmt != null) stmt.close();
-//				if(conn != null) conn.close();
-//			} catch (SQLException e) {
-//				
-//				e.printStackTrace();
-//			}
+			try {
+				if(stmt != null) stmt.close();
+				if(conn != null) conn.close();
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
 		}
 		// 닫기
 	}
