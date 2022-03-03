@@ -6,7 +6,7 @@ public class SampleVO {
 	private int num;
 	private String strData;
 	private Date sampleDate;
-	
+	 
 	
 	public SampleVO() {
 		super();
