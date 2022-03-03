@@ -7,7 +7,7 @@ public class SampleVO {
 	private String strData;
 	private Date sampleDate;
 	 
-	
+	 
 	public SampleVO() {
 		super();
 		// TODO Auto-generated constructor stub
