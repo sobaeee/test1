@@ -17,7 +17,7 @@ public class sampleDAO extends DbUtil {
 		StringBuffer sql = new StringBuffer();
 		
 		sql.append("\n INSERT INTO sample ");
-		sql.append("\n (num, strData, sampleDate() ");
+		sql.append("\n (num, strData, sampleDate) ");
 		sql.append("\n Values (null, ?, curdate()) ");
 		
 		Connection conn = null;
@@ -107,24 +107,22 @@ public class sampleDAO extends DbUtil {
 	}
 	
 	public void update(SampleVO vo) {
-		StringBuffer sql = new StringBuffer();
 		
+		StringBuffer sql = new StringBuffer();		
 		sql.append("\n UPDATE sample ");
-		sql.append("\n Set StrData = ?, SampleDate = ? ");
+		sql.append("\n Set StrData = ?, SampleDate = curdate() ");
 		sql.append("\n WHERE num = ? ");
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		int idx = 1;
 				
 		try {
 			conn = dbCoon();
 			
 			stmt = conn.prepareStatement(sql.toString());
-			stmt.setString(idx++, vo.getStrData());
-			stmt.setDate(idx++, (Date) vo.getSampleDate());
-			stmt.setInt(idx++, vo.getNum());
+			stmt.setString(1, vo.getStrData());
+			stmt.setInt(2, vo.getNum());
 			
 			int res = stmt.executeUpdate();
 			
@@ -139,7 +137,7 @@ public class sampleDAO extends DbUtil {
 	public void delete(SampleVO vo) {
 		StringBuffer sql = new StringBuffer();
 		
-		sql.append("\n DELETE * FROM sample ");
+		sql.append("\n DELETE FROM sample WHERE num = ? ");
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
